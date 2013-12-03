@@ -19,6 +19,17 @@
 		030E9EF2182C69A9004728C2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 030E9EDA182C69A9004728C2 /* UIKit.framework */; };
 		030E9EFA182C69A9004728C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 030E9EF8182C69A9004728C2 /* InfoPlist.strings */; };
 		030E9EFC182C69A9004728C2 /* GameTraderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 030E9EFB182C69A9004728C2 /* GameTraderTests.m */; };
+		030E9F0D182C6D01004728C2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 030E9F0B182C6D01004728C2 /* LoginViewController.m */; };
+		030E9F0E182C6D01004728C2 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 030E9F0C182C6D01004728C2 /* LoginViewController.xib */; };
+		03231A4118394415006C9135 /* TFHpple.m in Sources */ = {isa = PBXBuildFile; fileRef = 03231A3C18394415006C9135 /* TFHpple.m */; };
+		03231A4218394415006C9135 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 03231A3E18394415006C9135 /* TFHppleElement.m */; };
+		03231A4318394415006C9135 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 03231A4018394415006C9135 /* XPathQuery.m */; };
+		03231A45183946BB006C9135 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 03231A44183946BB006C9135 /* libxml2.2.dylib */; };
+		035A3DD1184D81A200168834 /* GameDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 035A3DCF184D81A200168834 /* GameDetailViewController.m */; };
+		035A3DD2184D81A200168834 /* GameDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 035A3DD0184D81A200168834 /* GameDetailViewController.xib */; };
+		03AB1C67184C07230014BD13 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 03AB1C66184C07230014BD13 /* Game.m */; };
+		03E50BC618418C1400510151 /* MyGamesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E50BC418418C1400510151 /* MyGamesViewController.m */; };
+		03E50BC718418C1400510151 /* MyGamesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03E50BC518418C1400510151 /* MyGamesViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +59,24 @@
 		030E9EF7182C69A9004728C2 /* GameTraderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GameTraderTests-Info.plist"; sourceTree = "<group>"; };
 		030E9EF9182C69A9004728C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		030E9EFB182C69A9004728C2 /* GameTraderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameTraderTests.m; sourceTree = "<group>"; };
+		030E9F0A182C6D01004728C2 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		030E9F0B182C6D01004728C2 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		030E9F0C182C6D01004728C2 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		03231A3B18394415006C9135 /* TFHpple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHpple.h; sourceTree = "<group>"; };
+		03231A3C18394415006C9135 /* TFHpple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHpple.m; sourceTree = "<group>"; };
+		03231A3D18394415006C9135 /* TFHppleElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TFHppleElement.h; sourceTree = "<group>"; };
+		03231A3E18394415006C9135 /* TFHppleElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TFHppleElement.m; sourceTree = "<group>"; };
+		03231A3F18394415006C9135 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		03231A4018394415006C9135 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		03231A44183946BB006C9135 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		035A3DCE184D81A200168834 /* GameDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDetailViewController.h; sourceTree = "<group>"; };
+		035A3DCF184D81A200168834 /* GameDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailViewController.m; sourceTree = "<group>"; };
+		035A3DD0184D81A200168834 /* GameDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameDetailViewController.xib; sourceTree = "<group>"; };
+		03AB1C65184C07230014BD13 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		03AB1C66184C07230014BD13 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		03E50BC318418C1400510151 /* MyGamesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGamesViewController.h; sourceTree = "<group>"; };
+		03E50BC418418C1400510151 /* MyGamesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGamesViewController.m; sourceTree = "<group>"; };
+		03E50BC518418C1400510151 /* MyGamesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGamesViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03231A45183946BB006C9135 /* libxml2.2.dylib in Frameworks */,
 				030E9ED9182C69A9004728C2 /* CoreGraphics.framework in Frameworks */,
 				030E9EDB182C69A9004728C2 /* UIKit.framework in Frameworks */,
 				030E9ED7182C69A9004728C2 /* Foundation.framework in Frameworks */,
@@ -96,6 +126,7 @@
 		030E9ED5182C69A9004728C2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				03231A44183946BB006C9135 /* libxml2.2.dylib */,
 				030E9ED6182C69A9004728C2 /* Foundation.framework */,
 				030E9ED8182C69A9004728C2 /* CoreGraphics.framework */,
 				030E9EDA182C69A9004728C2 /* UIKit.framework */,
@@ -107,9 +138,10 @@
 		030E9EDC182C69A9004728C2 /* GameTrader */ = {
 			isa = PBXGroup;
 			children = (
-				030E9EE5182C69A9004728C2 /* AppDelegate.h */,
-				030E9EE6182C69A9004728C2 /* AppDelegate.m */,
-				030E9EE8182C69A9004728C2 /* Images.xcassets */,
+				030E9F0F182C6D5A004728C2 /* AppDelegate */,
+				030E9F08182C6B87004728C2 /* Controllers */,
+				030E9F07182C6B78004728C2 /* Model */,
+				030E9F06182C6B70004728C2 /* Views */,
 				030E9EDD182C69A9004728C2 /* Supporting Files */,
 			);
 			path = GameTrader;
@@ -118,10 +150,12 @@
 		030E9EDD182C69A9004728C2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				030E9EE8182C69A9004728C2 /* Images.xcassets */,
 				030E9EDE182C69A9004728C2 /* GameTrader-Info.plist */,
 				030E9EDF182C69A9004728C2 /* InfoPlist.strings */,
 				030E9EE2182C69A9004728C2 /* main.m */,
 				030E9EE4182C69A9004728C2 /* GameTrader-Prefix.pch */,
+				03231A3A183943C1006C9135 /* hpple */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -142,6 +176,60 @@
 				030E9EF8182C69A9004728C2 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		030E9F06182C6B70004728C2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				035A3DD0184D81A200168834 /* GameDetailViewController.xib */,
+				03E50BC518418C1400510151 /* MyGamesViewController.xib */,
+				030E9F0C182C6D01004728C2 /* LoginViewController.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		030E9F07182C6B78004728C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				03AB1C65184C07230014BD13 /* Game.h */,
+				03AB1C66184C07230014BD13 /* Game.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		030E9F08182C6B87004728C2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				03E50BC318418C1400510151 /* MyGamesViewController.h */,
+				03E50BC418418C1400510151 /* MyGamesViewController.m */,
+				030E9F0A182C6D01004728C2 /* LoginViewController.h */,
+				030E9F0B182C6D01004728C2 /* LoginViewController.m */,
+				035A3DCE184D81A200168834 /* GameDetailViewController.h */,
+				035A3DCF184D81A200168834 /* GameDetailViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		030E9F0F182C6D5A004728C2 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				030E9EE6182C69A9004728C2 /* AppDelegate.m */,
+				030E9EE5182C69A9004728C2 /* AppDelegate.h */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		03231A3A183943C1006C9135 /* hpple */ = {
+			isa = PBXGroup;
+			children = (
+				03231A3B18394415006C9135 /* TFHpple.h */,
+				03231A3C18394415006C9135 /* TFHpple.m */,
+				03231A3D18394415006C9135 /* TFHppleElement.h */,
+				03231A3E18394415006C9135 /* TFHppleElement.m */,
+				03231A3F18394415006C9135 /* XPathQuery.h */,
+				03231A4018394415006C9135 /* XPathQuery.m */,
+			);
+			name = hpple;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,8 +307,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03E50BC718418C1400510151 /* MyGamesViewController.xib in Resources */,
 				030E9EE1182C69A9004728C2 /* InfoPlist.strings in Resources */,
 				030E9EE9182C69A9004728C2 /* Images.xcassets in Resources */,
+				035A3DD2184D81A200168834 /* GameDetailViewController.xib in Resources */,
+				030E9F0E182C6D01004728C2 /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +331,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				030E9EE7182C69A9004728C2 /* AppDelegate.m in Sources */,
+				03E50BC618418C1400510151 /* MyGamesViewController.m in Sources */,
 				030E9EE3182C69A9004728C2 /* main.m in Sources */,
+				03AB1C67184C07230014BD13 /* Game.m in Sources */,
+				030E9F0D182C6D01004728C2 /* LoginViewController.m in Sources */,
+				03231A4118394415006C9135 /* TFHpple.m in Sources */,
+				035A3DD1184D81A200168834 /* GameDetailViewController.m in Sources */,
+				03231A4318394415006C9135 /* XPathQuery.m in Sources */,
+				03231A4218394415006C9135 /* TFHppleElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +413,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SDKROOT)/usr/include/libxml2",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -349,6 +452,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SDKROOT)/usr/include/libxml2",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -364,7 +472,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GameTrader/GameTrader-Prefix.pch";
 				INFOPLIST_FILE = "GameTrader/GameTrader-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -377,7 +487,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GameTrader/GameTrader-Prefix.pch";
 				INFOPLIST_FILE = "GameTrader/GameTrader-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -443,6 +555,7 @@
 				030E9F01182C69A9004728C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		030E9F02182C69A9004728C2 /* Build configuration list for PBXNativeTarget "GameTraderTests" */ = {
 			isa = XCConfigurationList;
@@ -451,6 +564,7 @@
 				030E9F04182C69A9004728C2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
