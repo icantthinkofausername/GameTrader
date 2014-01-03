@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "GameSearchViewController.h"
 #import "LoginViewController.h"
 
 @implementation AppDelegate
@@ -18,9 +19,21 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
     LoginViewController *loginViewController = [[LoginViewController alloc] init];
-    UINavigationController *mainNavigationController = [[UINavigationController alloc] initWithRootViewController: loginViewController];
-    [[self window] setRootViewController:mainNavigationController];
+    UINavigationController *myGamesNavigationController = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    [myGamesNavigationController setTabBarItem: [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:0]];
+
+    GameSearchViewController *gameSearchViewController = [[GameSearchViewController alloc] init];
+    UINavigationController *gameSearchNavigationController = [[UINavigationController alloc] initWithRootViewController:gameSearchViewController];
+    [gameSearchNavigationController setTabBarItem: [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:0]];
+
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithObjects:myGamesNavigationController, gameSearchNavigationController, nil];
+    [tabBarController setViewControllers:viewControllers];
+    [tabBarController setDelegate:self];
+    [[tabBarController tabBar] setHidden: YES];
+    [[self window] setRootViewController:tabBarController];
+    
     return YES;
 }
 
@@ -50,5 +63,11 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+- (BOOL)tabBarController:(UITabBarController *)theTabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    return (theTabBarController.selectedViewController != viewController);
+}
+
 
 @end

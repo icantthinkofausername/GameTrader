@@ -11,6 +11,11 @@
 @interface Game : NSObject
 
 @property (nonatomic, retain) NSString *title;
+@property (nonatomic, retain) NSURL *gameUrl;
 @property (nonatomic, retain) NSURL *boxArtUrl;
+@property (nonatomic, assign) BOOL canRelist;
+@property (nonatomic, assign) BOOL canRemove;
+@property (nonatomic, assign) BOOL canUnlist;
+@property (nonatomic, assign) BOOL canEdit;
 
 @end

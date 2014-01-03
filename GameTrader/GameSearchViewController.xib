@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameSearchViewController">
+            <connections>
+                <outlet property="searchDisplayController" destination="q7R-f1-pSr" id="iyw-UD-aAB"/>
+                <outlet property="view" destination="1" id="3"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vGO-8v-IeR">
+                    <rect key="frame" x="0.0" y="24" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="hG8-eZ-whl"/>
+                    </connections>
+                </searchBar>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </view>
+        <searchDisplayController id="q7R-f1-pSr">
+            <connections>
+                <outlet property="delegate" destination="-1" id="mma-hp-GDw"/>
+                <outlet property="searchBar" destination="vGO-8v-IeR" id="BY6-td-Pu8"/>
+                <outlet property="searchContentsController" destination="-1" id="djo-WY-K7d"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="kgA-Fp-7h1"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="hCN-BD-u54"/>
+            </connections>
+        </searchDisplayController>
+    </objects>
+</document>

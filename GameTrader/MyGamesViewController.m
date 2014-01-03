@@ -19,6 +19,12 @@
 @property (nonatomic, strong) NSString *myGameImagesXpathQueryString;
 @property (nonatomic, strong) NSArray *myGameImagesNodes;
 @property (nonatomic, strong) NSMutableArray *myGames;
+@property (nonatomic, strong) NSString *myCoinsXpathQueryString;
+@property (nonatomic, strong) NSArray *myCoinsNodes;
+@property (nonatomic, assign) NSInteger myCoins;
+@property (nonatomic, strong) NSString *myGameActionsXpathQueryString;
+@property (nonatomic, strong) NSArray *myGameActionsNodes;
+@property (nonatomic, strong) NSArray *myGameActions;
 
 @end
 
@@ -33,6 +39,12 @@
 @synthesize myGameImagesNodes = _myGameImagesNodes;
 @synthesize myGames = _myGames;
 @synthesize htmlParser = _htmlParser;
+@synthesize myCoinsXpathQueryString = _myCoinsXpathQueryString;
+@synthesize myCoinsNodes = _myCoinsNodes;
+@synthesize myCoins = _myCoins;
+@synthesize myGameActionsXpathQueryString = _myGameActionsXpathQueryString;
+@synthesize myGameActionsNodes = _myGameActionsNodes;
+@synthesize myGameActions = _myGameActions;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -69,10 +81,18 @@
     
 }
 
+-(void)loadView
+{
+    [super loadView];
+    [self setActivityIndicator: [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray]];
+    [[self view]addSubview: [self activityIndicator]];
+    [[self activityIndicator] setCenter: [[self view] center]];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -142,27 +162,85 @@
     [self setHtmlParser: [TFHpple hppleWithHTMLData:[self webData]]];
     [self setMyGamesXpathQueryString: @"//table[@class='catalog_games profile_games']/tr/td/a"];
     [self setMyGamesNodes: [[self htmlParser] searchWithXPathQuery: [self myGamesXpathQueryString]]];
-    [self setMyGameImagesXpathQueryString: @"//table[@class='catalog_games profile_games']/tr/td/div/a"];
+    [self setMyGameImagesXpathQueryString: @"//table[@class='catalog_games profile_games']/tr/td/div/a/img"];
     [self setMyGameImagesNodes: [[self htmlParser] searchWithXPathQuery: [self myGameImagesXpathQueryString]]];
+    [self setMyCoinsXpathQueryString: @"//div[@class='header_new_button header_balance ']"];
+    [self setMyCoinsNodes: [[self htmlParser] searchWithXPathQuery: [self myCoinsXpathQueryString]]];
+    [self setMyGameActionsXpathQueryString: @"//div[@class='game_action']"];
+    [self setMyGameActionsNodes: [[self htmlParser] searchWithXPathQuery: [self myGameActionsXpathQueryString]]];
     
     [self setMyGames: [[NSMutableArray alloc] initWithCapacity:0]];
-    int i;
+    int i, j;
     for (i = 0; i < [[self myGamesNodes] count]; i++) {
         TFHppleElement *gameElement = [[self myGamesNodes] objectAtIndex:i];
         TFHppleElement *gameImageElement = [[self myGameImagesNodes] objectAtIndex:i];
+        TFHppleElement *gameActionElement = [[self myGameActionsNodes] objectAtIndex:i];
+ 
         NSLog(@"game element is %@", gameElement);
-        NSLog(@"game element is %@", gameImageElement);
+        NSLog(@"game image element is %@", gameImageElement);
+        NSLog(@"game action element is %@", gameActionElement);
         
+        [self setMyGameActions:[gameActionElement childrenWithTagName:@"a"]];
         Game *game  = [[Game alloc] init];
         [game setTitle: [[gameElement firstChild] content]];
-        [game setBoxArtUrl: [NSURL URLWithString:[gameImageElement objectForKey:@"href"]]];
-
+        [game setGameUrl: [NSURL URLWithString:[gameElement objectForKey:@"href"]]];
+        [game setBoxArtUrl: [NSURL URLWithString:[gameImageElement objectForKey:@"src"]]];
+     
+        for (j = 0; j < [[self myGameActions] count]; j++) {
+            TFHppleElement *myGameActionsElement = [[self myGameActions] objectAtIndex:j];
+            NSLog(@"game actions element is %@", myGameActionsElement);
+            NSString *gameAction = [[[myGameActionsElement children] objectAtIndex: 0] content];
+            if([gameAction isEqualToString:@"Relist Game"]) {
+                [game setCanRelist: YES];
+            }
+            else if([gameAction isEqualToString:@"Remove Game"]) {
+                [game setCanRemove: YES];
+            }
+            else if([gameAction isEqualToString:@"Unlist"]) {
+                [game setCanUnlist: YES];
+            }
+            else if([gameAction isEqualToString:@"Edit"]) {
+                [game setCanEdit: YES];
+            }
+        }
+        
         [[self myGames] addObject: game];
     }
+    
+    for (i = 0; i < [[self myCoinsNodes] count]; i++) {
+        TFHppleElement *coinElement = [[self myCoinsNodes] objectAtIndex:i];
+        NSLog(@"coin element is %@", coinElement);
+        [self setMyCoins:[[[[coinElement children] objectAtIndex: 2] content] integerValue]];
+    }
+
     
     [[self tableView] reloadData];
     [[self activityIndicator] setHidden: YES];
     [[self activityIndicator] stopAnimating];
+}
+
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
+    [headerView setBackgroundColor:[UIColor grayColor]];
+    
+    int kSectionTitleLeftMargin = 500, kSectionTitleTopMargin = 50, kSectionTitleRightMargin = 100, kSectionTitleBottomMargin = 60;
+    // Add the label
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(kSectionTitleLeftMargin,
+                                                                     kSectionTitleTopMargin,
+                                                                     tableView.bounds.size.width - kSectionTitleLeftMargin - kSectionTitleRightMargin,
+                                                                     30.0 - kSectionTitleTopMargin - kSectionTitleBottomMargin)];
+    
+    // do whatever headerLabel configuration you want here
+    NSString* coinString = [NSString stringWithFormat:@"%i", [self myCoins]];
+
+    NSMutableString *headerText = [[NSMutableString alloc] initWithString:@"Coins: "];
+    [headerText appendString: coinString];
+    [headerLabel setText: headerText];
+    [headerView addSubview:headerLabel];
+    
+    // Return the headerView
+    return headerView;
 }
 
 /*
@@ -212,7 +290,7 @@
 {
     // Navigation logic may go here, for example:
     // Create the next view controller.
-    GameDetailViewController *gameDetailViewController = [[GameDetailViewController alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+    GameDetailViewController *gameDetailViewController = [[GameDetailViewController alloc] init];
 
     // Pass the selected object to the new view controller.
     

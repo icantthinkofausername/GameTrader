@@ -11,6 +11,11 @@
 @implementation Game
 
 @synthesize title = _title;
+@synthesize gameUrl = _gameUrl;
 @synthesize boxArtUrl = _boxArtUrl;
+@synthesize canRelist = _canRelist;
+@synthesize canRemove = _canRemove;
+@synthesize canUnlist = _canUnlist;
+@synthesize canEdit = _canEdit;
 
 @end

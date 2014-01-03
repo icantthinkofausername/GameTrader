@@ -6,7 +6,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyGamesViewController">
             <connections>
-                <outlet property="activityIndicator" destination="MnR-8f-kD9" id="fvb-v6-2lx"/>
                 <outlet property="view" destination="4" id="5"/>
             </connections>
         </placeholder>
@@ -17,10 +16,6 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <activityIndicatorView key="tableHeaderView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="MnR-8f-kD9">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
-                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            </activityIndicatorView>
             <connections>
                 <outlet property="dataSource" destination="-1" id="6"/>
                 <outlet property="delegate" destination="-1" id="7"/>

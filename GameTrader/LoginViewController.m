@@ -110,7 +110,7 @@
             [self setMyGamesViewController: [[MyGamesViewController alloc] init]];
             [[self myGamesViewController] awakeFromNib];
         }
-        
+        [[[self tabBarController] tabBar] setHidden: NO];
         [[self navigationController] pushViewController:[self myGamesViewController] animated:YES];
 
     } else {
