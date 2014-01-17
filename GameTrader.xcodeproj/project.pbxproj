@@ -25,6 +25,9 @@
 		03231A4218394415006C9135 /* TFHppleElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 03231A3E18394415006C9135 /* TFHppleElement.m */; };
 		03231A4318394415006C9135 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 03231A4018394415006C9135 /* XPathQuery.m */; };
 		03231A45183946BB006C9135 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 03231A44183946BB006C9135 /* libxml2.2.dylib */; };
+		0328440D18877DCA00DF2F80 /* GameListingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0328440C18877DCA00DF2F80 /* GameListingCell.m */; };
+		03284410188781C200DF2F80 /* GameListing.m in Sources */ = {isa = PBXBuildFile; fileRef = 0328440F188781C200DF2F80 /* GameListing.m */; };
+		033D832F187A2E1900867055 /* GameListingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 033D832E187A2E1900867055 /* GameListingCell.xib */; };
 		0343D6F81871425A00F81709 /* GameSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0343D6F61871425A00F81709 /* GameSearchViewController.m */; };
 		0343D6F91871425A00F81709 /* GameSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0343D6F71871425A00F81709 /* GameSearchViewController.xib */; };
 		035A3DD1184D81A200168834 /* GameDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 035A3DCF184D81A200168834 /* GameDetailViewController.m */; };
@@ -71,6 +74,11 @@
 		03231A3F18394415006C9135 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
 		03231A4018394415006C9135 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		03231A44183946BB006C9135 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		0328440B18877DCA00DF2F80 /* GameListingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameListingCell.h; sourceTree = "<group>"; };
+		0328440C18877DCA00DF2F80 /* GameListingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameListingCell.m; sourceTree = "<group>"; };
+		0328440E188781C200DF2F80 /* GameListing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameListing.h; sourceTree = "<group>"; };
+		0328440F188781C200DF2F80 /* GameListing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameListing.m; sourceTree = "<group>"; };
+		033D832E187A2E1900867055 /* GameListingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameListingCell.xib; sourceTree = "<group>"; };
 		0343D6F51871425A00F81709 /* GameSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSearchViewController.h; sourceTree = "<group>"; };
 		0343D6F61871425A00F81709 /* GameSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSearchViewController.m; sourceTree = "<group>"; };
 		0343D6F71871425A00F81709 /* GameSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameSearchViewController.xib; sourceTree = "<group>"; };
@@ -190,6 +198,7 @@
 				0343D6F71871425A00F81709 /* GameSearchViewController.xib */,
 				03E50BC518418C1400510151 /* MyGamesViewController.xib */,
 				030E9F0C182C6D01004728C2 /* LoginViewController.xib */,
+				033D832E187A2E1900867055 /* GameListingCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -197,8 +206,12 @@
 		030E9F07182C6B78004728C2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0328440B18877DCA00DF2F80 /* GameListingCell.h */,
+				0328440C18877DCA00DF2F80 /* GameListingCell.m */,
 				03AB1C65184C07230014BD13 /* Game.h */,
 				03AB1C66184C07230014BD13 /* Game.m */,
+				0328440E188781C200DF2F80 /* GameListing.h */,
+				0328440F188781C200DF2F80 /* GameListing.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -318,6 +331,7 @@
 				03E50BC718418C1400510151 /* MyGamesViewController.xib in Resources */,
 				030E9EE1182C69A9004728C2 /* InfoPlist.strings in Resources */,
 				0343D6F91871425A00F81709 /* GameSearchViewController.xib in Resources */,
+				033D832F187A2E1900867055 /* GameListingCell.xib in Resources */,
 				030E9EE9182C69A9004728C2 /* Images.xcassets in Resources */,
 				035A3DD2184D81A200168834 /* GameDetailViewController.xib in Resources */,
 				030E9F0E182C6D01004728C2 /* LoginViewController.xib in Resources */,
@@ -342,6 +356,8 @@
 				0343D6F81871425A00F81709 /* GameSearchViewController.m in Sources */,
 				030E9EE7182C69A9004728C2 /* AppDelegate.m in Sources */,
 				03E50BC618418C1400510151 /* MyGamesViewController.m in Sources */,
+				0328440D18877DCA00DF2F80 /* GameListingCell.m in Sources */,
+				03284410188781C200DF2F80 /* GameListing.m in Sources */,
 				030E9EE3182C69A9004728C2 /* main.m in Sources */,
 				03AB1C67184C07230014BD13 /* Game.m in Sources */,
 				030E9F0D182C6D01004728C2 /* LoginViewController.m in Sources */,

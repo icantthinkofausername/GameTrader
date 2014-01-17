@@ -17,5 +17,6 @@
 @synthesize canRemove = _canRemove;
 @synthesize canUnlist = _canUnlist;
 @synthesize canEdit = _canEdit;
+@synthesize platform = _platform;
 
 @end

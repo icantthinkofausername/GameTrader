@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Game.h"
+#import "GameListing.h"
 
-@interface GameDetailViewController : UIViewController 
+@interface GameDetailViewController : UIViewController <NSURLConnectionDelegate>
+
+@property (nonatomic, strong) NSMutableData *webData;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, strong) Game *game;
+@property (nonatomic, strong) GameListing *gameListing;
 
 @end

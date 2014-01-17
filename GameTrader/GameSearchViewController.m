@@ -9,14 +9,11 @@
 #import "GameSearchViewController.h"
 #import "Game.h"
 #import "TFHpple.h"
+#import "GameDetailViewController.h"
 
 @interface GameSearchViewController ()
 
 @property (nonatomic, strong) TFHpple *htmlParser;
-@property (nonatomic, strong) NSString *searchedGameLinkXpathQueryString;
-@property (nonatomic, strong) NSArray *searchedGameLinkNodes;
-@property (nonatomic, strong) NSString *searchedGamePlatformXpathQueryString;
-@property (nonatomic, strong) NSArray *searchedGamePlatformNodes;
 @property (nonatomic, strong) NSString *searchedGameXpathQueryString;
 @property (nonatomic, strong) NSArray *searchedGameNodes;
 @property (nonatomic, strong) NSMutableArray *searchedGames;
@@ -28,10 +25,6 @@
 @synthesize htmlParser = _htmlParser;
 @synthesize activityIndicator = _activityIndicator;
 @synthesize webData = _webData;
-@synthesize searchedGameLinkXpathQueryString = _searchedGameLinkXpathQueryString;
-@synthesize searchedGameLinkNodes = _searchedGameLinkNodes;
-@synthesize searchedGamePlatformXpathQueryString = _searchedGamePlatformXpathQueryString;
-@synthesize searchedGamePlatformNodes = _searchedGamePlatformNodes;
 @synthesize searchedGameXpathQueryString = _searchedGameXpathQueryString;
 @synthesize searchedGameNodes = _searchedGameNodes;
 @synthesize searchedGames = _searchedGames;
@@ -49,7 +42,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) { // if iOS 7
+        self.edgesForExtendedLayout = UIRectEdgeNone; //layout adjustements
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,12 +73,15 @@
     // Dequeue or create a cell of the appropriate type.
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         [cell setAccessoryType: UITableViewCellAccessoryNone];
     }
-    
+        
     // Configure the cell.
-    [[cell textLabel] setText: [NSString stringWithFormat:@"Row %d", indexPath.row]];
+    NSMutableString *cellText = [[NSMutableString alloc] initWithString: [[[self searchedGames] objectAtIndex: [indexPath row]] title]];
+    NSMutableString *detailCellText = [[NSMutableString alloc] initWithString: [[[self searchedGames] objectAtIndex: [indexPath row]] platform]];
+    [[cell textLabel] setText: cellText];
+    [[cell detailTextLabel] setText: detailCellText];
     return cell;
 }
 
@@ -146,47 +144,40 @@
     NSLog(@"after comparing data is %@", loginStatus);
     
     [self setHtmlParser: [TFHpple hppleWithHTMLData:[self webData]]];
-    [self setSearchedGameXpathQueryString: @"//div[@class='prof_game_title']/div"];
+    [self setSearchedGameXpathQueryString: @"//div[@class='prof_game_title']/.."];
     [self setSearchedGameNodes: [[self htmlParser] searchWithXPathQuery: [self searchedGameXpathQueryString]]];
-    [self setSearchedGamePlatformXpathQueryString: @"//div[@class='prof_game_title']/div/span"];
-    [self setSearchedGamePlatformNodes: [[self htmlParser] searchWithXPathQuery: [self searchedGamePlatformXpathQueryString]]];
-    [self setSearchedGameLinkXpathQueryString: @"//div[@class='prof_game_title']/.."];
-    [self setSearchedGameLinkNodes: [[self htmlParser] searchWithXPathQuery: [self searchedGameLinkXpathQueryString]]];
     
     [self setSearchedGames: [[NSMutableArray alloc] initWithCapacity:0]];
-    int i, j;
+    int i;
     for (i = 0; i < [[self searchedGameNodes] count]; i++) {
         TFHppleElement *searchedGameNodeElement = [[self searchedGameNodes] objectAtIndex:i];
-        TFHppleElement *searchedGamePlatformNodeElement = [[self searchedGamePlatformNodes] objectAtIndex:i];
-        TFHppleElement *searchedGameLinkNodeElement = [[self searchedGameLinkNodes] objectAtIndex:i];
-
         
         NSLog(@"game element is %@", searchedGameNodeElement);
-        NSLog(@"game element is %@", searchedGamePlatformNodeElement);
-        NSLog(@"game element is %@", searchedGameLinkNodeElement);
-      //  NSString *url = [[[searchedGameNodeElement children] objectAtIndex: 3] objectForKey: @"href"];
-        //[[[[[[[searchedGameNodeElement children] objectAtIndex: 5] children] objectAtIndex: 1] children] objectAtIndex:0] content]
-        
-        /*[self setMyGameActions:[gameActionElement childrenWithTagName:@"a"]];
-        Game *game  = [[Game alloc] init];
-        [game setTitle: [[gameElement firstChild] content]];
-        [game setGameUrl: [NSURL URLWithString:[gameElement objectForKey:@"href"]]];
-        [game setBoxArtUrl: [NSURL URLWithString:[gameImageElement objectForKey:@"src"]]];
-        
-        for (j = 0; j < [[self myGameActions] count]; j++) {
-            TFHppleElement *myGameActionsElement = [[self myGameActions] objectAtIndex:j];
-            NSLog(@"game actions element is %@", myGameActionsElement);
-            NSString *gameAction = [[[myGameActionsElement children] objectAtIndex: 0] content];
-
-        }
-        
-        [[self myGames] addObject: game];*/
+        Game *game = [[Game alloc] init];
+        [game setGameUrl: [NSURL URLWithString:[[[searchedGameNodeElement children] objectAtIndex: 3] objectForKey: @"href"]]];
+        [game setTitle: [[[[[[[searchedGameNodeElement children] objectAtIndex: 5] children] objectAtIndex: 1] children] objectAtIndex: 0] content]];
+        [game setPlatform: [[[[[[[[[searchedGameNodeElement children] objectAtIndex: 5] children] objectAtIndex: 3] children] objectAtIndex: 1] children] objectAtIndex: 0] content]];
+        [[self searchedGames] addObject: game];
     }
     
     
     [[[self searchDisplayController]searchResultsTableView] reloadData];
     [[self activityIndicator] setHidden: YES];
     [[self activityIndicator] stopAnimating];
+}
+
+// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Navigation logic may go here, for example:
+    // Create the next view controller.
+    GameDetailViewController *gameDetailViewController = [[GameDetailViewController alloc] init];
+    [gameDetailViewController setGame: [[self searchedGames] objectAtIndex:[indexPath row]]];
+    
+    // Pass the selected object to the new view controller.
+    
+    // Push the view controller.
+    [self.navigationController pushViewController:gameDetailViewController animated:YES];
 }
 
 /*- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
