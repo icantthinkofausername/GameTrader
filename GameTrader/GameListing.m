@@ -10,7 +10,7 @@
 
 @implementation GameListing
 
-@synthesize address = _address;
+@synthesize sellerAddress = _sellerAddress;
 @synthesize percent = _percent;
 @synthesize sells = _sells;
 @synthesize buys =_buys;

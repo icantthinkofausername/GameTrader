@@ -11,6 +11,8 @@
 @interface Game : NSObject
 
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *date;
 @property (nonatomic, strong) NSURL *gameUrl;
 @property (nonatomic, strong) NSURL *boxArtUrl;
 @property (nonatomic, assign) BOOL canRelist;

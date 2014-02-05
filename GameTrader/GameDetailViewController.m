@@ -7,6 +7,7 @@
 //
 
 #import "GameDetailViewController.h"
+#import "GameListingCell.h"
 #import "TFHpple.h"
 
 @interface GameDetailViewController ()
@@ -34,6 +35,10 @@
 @property (nonatomic, strong) NSArray *sellerNameNodes;
 @property (nonatomic, strong) NSMutableArray *sellerNames;
 @property (nonatomic, strong) NSMutableArray *gameListings;
+@property (nonatomic, strong) NSString *gameDescriptionXpathQueryString;
+@property (nonatomic, strong) NSArray *gameDescriptionNodes;
+@property (nonatomic, strong) NSString *gameDateXpathQueryString;
+@property (nonatomic, strong) NSArray *gameDateNodes;
 
 @end
 
@@ -63,6 +68,14 @@
 @synthesize sellerImageXpathQueryString = _sellerImageXpathQueryString;
 @synthesize sellerNameNodes = _sellerNameNodes;
 @synthesize sellerNames = _sellerNames;
+@synthesize gameDescriptionXpathQueryString = _gameDescriptionXpathQueryString;
+@synthesize gameDescriptionNodes = _gameDescriptionNodes;
+@synthesize gameListingTableView = _gameListingViewTable;
+@synthesize gameImageView = _gameImageView;
+@synthesize gameDescriptionTextView = _gameDescriptionTextView;
+@synthesize gameTitleLabel = _gameTitleLabel;
+@synthesize gamePlatformLabel = _gamePlatformLabel;
+@synthesize gameDateLabel = _gameDateLabel;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -78,6 +91,20 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    UIImage *gameImage = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[[self game] boxArtUrl]]];
+    [[self gameImageView] setImage: gameImage];
+    [[self gameTitleLabel] setText: [[self game] title]];
+    [[self gamePlatformLabel] setText: [[self game] platform]];
+    [[self gameDescriptionTextView] setText: [[self game] description]];
+    [[self gameDateLabel] setText: [[self game] date]];
+}
+
+- (void)setupViewController
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    
     
     NSMutableString *urlString = [[NSMutableString alloc] initWithString: @"http://99gamers.com"];
     [urlString appendString: [[[self game] gameUrl] absoluteString]];
@@ -131,6 +158,9 @@
     [self setPercentXpathQueryString: @"//span[@class='proc']/b"];
     [self setAddressXpathQueryString: @"//span[@class='user_from']"];
     [self setStatXpathQueryString: @"//div[@class='user_stat']"];
+    [self setGameDescriptionXpathQueryString:@"//p[@class='game_full_text']"];
+    [self setGameDateXpathQueryString:@"//div[@class='game_year pull-right']"];
+
 
     [self setCoinCostNodes: [[self htmlParser] searchWithXPathQuery: [self coinCostXpathQueryString]]];
     [self setConditionNodes:[[self htmlParser] searchWithXPathQuery: [self conditionXpathQueryString]]];
@@ -139,6 +169,9 @@
     [self setPercentNodes: [[self htmlParser] searchWithXPathQuery: [self percentXpathQueryString]]];
     [self setAddressNodes: [[self htmlParser] searchWithXPathQuery: [self addressXpathQueryString]]];
     [self setStatNodes: [[self htmlParser] searchWithXPathQuery: [self statXpathQueryString]]];
+    [self setGameDescriptionNodes: [[self htmlParser] searchWithXPathQuery: [self gameDescriptionXpathQueryString]]];
+    [self setGameDateNodes: [[self htmlParser] searchWithXPathQuery: [self gameDateXpathQueryString]]];
+
     
     [self setCoinCosts: [[NSMutableArray alloc] initWithCapacity:0]];
     [self setConditions: [[NSMutableArray alloc] initWithCapacity:0]];
@@ -147,8 +180,9 @@
     [self setPercents: [[NSMutableArray alloc] initWithCapacity:0]];
     [self setAddresses: [[NSMutableArray alloc] initWithCapacity:0]];
     [self setStats: [[NSMutableArray alloc] initWithCapacity:0]];
+    [self setGameListings: [[NSMutableArray alloc] initWithCapacity:0]];
     
-    int i;
+    int i = 0, percentCount = 0;
     for (i = 0; i < [[self sellerNameNodes] count]; i++) {
         TFHppleElement *coinCostNodeElement = [[self coinCostNodes] objectAtIndex:i];
         TFHppleElement *conditionsNodeElement = [[self conditionNodes] objectAtIndex:i];
@@ -162,16 +196,17 @@
         [gameListing setSellerName: [[[sellerNamesNodeElement children] objectAtIndex: 0] content]];
         [gameListing setCoinCost: [[[[coinCostNodeElement children] objectAtIndex: 1] content] intValue]];
         [gameListing setCondition: [[[conditionsNodeElement children] objectAtIndex: 0] content]];
-        [gameListing setAddress: [[[addressNodeElement children] objectAtIndex: 1] content]];
+        [gameListing setSellerAddress: [[[addressNodeElement children] objectAtIndex: 1] content]];
         
-        if([[self percentNodes] count] >= i + 1) {
-            TFHppleElement *percentNodeElement = [[self percentNodes] objectAtIndex:i];
+        if([[statNodeElement description] rangeOfString: @"%"].location != NSNotFound) {
+            TFHppleElement *percentNodeElement = [[self percentNodes] objectAtIndex:percentCount++];
             [gameListing setPercent: [[[percentNodeElement children] objectAtIndex: 0] content]];
             
             [gameListing setBuys: [[[[[[[statNodeElement children] objectAtIndex: 3] children] objectAtIndex: 0] children] objectAtIndex: 0] content]];
             [gameListing setSells: [[[[[[[statNodeElement children] objectAtIndex: 5] children] objectAtIndex: 0] children] objectAtIndex: 0] content]];
         }
         else {
+            [gameListing setPercent: @"0"];
             [gameListing setBuys: [[[[[[[statNodeElement children] objectAtIndex: 1] children] objectAtIndex: 0] children] objectAtIndex: 0] content]];
             [gameListing setSells: [[[[[[[statNodeElement children] objectAtIndex: 3] children] objectAtIndex: 0] children] objectAtIndex: 0] content]];
         }
@@ -186,10 +221,59 @@
         [[self gameListings] addObject: gameListing];
     }
     
+    if ([[self gameDescriptionNodes] count] > 0) {
+        [[self game] setDescription: [[[[[self gameDescriptionNodes] objectAtIndex:0] children] objectAtIndex: 0] content]];
+    }
     
-    [[[self searchDisplayController]searchResultsTableView] reloadData];
+    if ([[self gameDateNodes] count] > 0) {
+        [[self game] setDate: [[[[[self gameDateNodes] objectAtIndex:0] children] objectAtIndex: 0] content]];
+    }
+    
+    [[self gameListingTableView] reloadData];
     [[self activityIndicator] setHidden: YES];
     [[self activityIndicator] stopAnimating];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"GameDetailViewControllerSetupDone" object:self];
 }
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)aTableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    return [[self gameListings] count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    static NSString *CellIdentifier = @"GameListingCell";
+    
+    // Dequeue or create a cell of the appropriate type.
+    GameListingCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+       // cell = [[GameListingCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+       // [cell setAccessoryType: UITableViewCellAccessoryNone];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    
+    // Configure the cell.
+    GameListing *gameListing = [[self gameListings] objectAtIndex: [indexPath row]];
+    [[cell addressLabel] setText: [gameListing sellerAddress]];
+    [[cell nameLabel] setText: [gameListing sellerName]];
+    [[cell percentLabel] setText: [gameListing percent]];
+    [[cell sellsLabel] setText: [gameListing sells]];
+    [[cell buysLabel] setText: [gameListing buys]];
+    [[cell coinCostLabel] setText: [NSString stringWithFormat:@"%d",[gameListing coinCost]]];
+    [[cell conditionLabel] setText: [gameListing condition]];
+    [[cell imageView] setImage: [gameListing sellerImage]];
+    
+    return cell;
+}
+
 
 @end

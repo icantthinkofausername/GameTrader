@@ -10,6 +10,15 @@
 
 @implementation GameListingCell
 
+@synthesize addressLabel = _addressLabel;
+@synthesize percentLabel = _percentLabel;
+@synthesize sellsLabel = _sellsLabel;
+@synthesize coinCostLabel = _coinCostLabel;
+@synthesize conditionLabel = _conditionLabel;
+@synthesize sellerImage = _sellerImage;
+@synthesize nameLabel = _nameLabel;
+@synthesize buysLabel = _buysLabel;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

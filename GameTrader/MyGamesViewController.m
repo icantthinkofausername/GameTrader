@@ -45,12 +45,14 @@
 @synthesize myGameActionsXpathQueryString = _myGameActionsXpathQueryString;
 @synthesize myGameActionsNodes = _myGameActionsNodes;
 @synthesize myGameActions = _myGameActions;
+@synthesize gameDetailViewController = _gameDetailViewController;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushGameDetailViewController:) name:@"GameDetailViewControllerSetupDone" object:nil];
     }
     return self;
 }
@@ -184,7 +186,7 @@
         Game *game  = [[Game alloc] init];
         [game setTitle: [[gameElement firstChild] content]];
         [game setGameUrl: [NSURL URLWithString:[gameElement objectForKey:@"href"]]];
-        [game setBoxArtUrl: [NSURL URLWithString:[gameImageElement objectForKey:@"src"]]];
+        [game setBoxArtUrl: [NSURL URLWithString:[gameImageElement objectForKey:@"data-cfsrc"]]];
      
         for (j = 0; j < [[self myGameActions] count]; j++) {
             TFHppleElement *myGameActionsElement = [[self myGameActions] objectAtIndex:j];
@@ -243,6 +245,24 @@
     return headerView;
 }
 
+-(void) pushGameDetailViewController:(NSNotification *)notify
+{
+    // Pass the selected object to the new view controller.
+    // Push the view controller.
+    [[self activityIndicator] setHidden: YES];
+    [[self activityIndicator] stopAnimating];
+
+    if([[self gameDetailViewController] navigationController] == nil && [self gameDetailViewController] == [notify object]) {
+        [[self navigationController] pushViewController:[self gameDetailViewController] animated:YES];
+    }
+}
+
+- (void)viewDidUnload
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewDidUnload];
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -290,12 +310,16 @@
 {
     // Navigation logic may go here, for example:
     // Create the next view controller.
-    GameDetailViewController *gameDetailViewController = [[GameDetailViewController alloc] init];
-
     // Pass the selected object to the new view controller.
-    
     // Push the view controller.
-    [self.navigationController pushViewController:gameDetailViewController animated:YES];
+    GameDetailViewController *gameDetailViewController = [[GameDetailViewController alloc] init];
+    [self setGameDetailViewController: gameDetailViewController];
+    
+    [gameDetailViewController setGame: [[self myGames] objectAtIndex:[indexPath row]]];
+    [gameDetailViewController setupViewController];
+    
+    [[self activityIndicator] setHidden: NO];
+    [[self activityIndicator] startAnimating];
 }
 
 @end

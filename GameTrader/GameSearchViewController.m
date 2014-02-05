@@ -28,12 +28,14 @@
 @synthesize searchedGameXpathQueryString = _searchedGameXpathQueryString;
 @synthesize searchedGameNodes = _searchedGameNodes;
 @synthesize searchedGames = _searchedGames;
+@synthesize gameDetailViewController = _gameDetailViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushGameDetailViewController:) name:@"GameDetailViewControllerSetupDone" object:nil];
     }
     return self;
 }
@@ -45,6 +47,9 @@
     if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) { // if iOS 7
         self.edgesForExtendedLayout = UIRectEdgeNone; //layout adjustements
     }
+    
+    [[self activityIndicator] setHidden: YES];
+    [[self activityIndicator] stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning
@@ -157,6 +162,8 @@
         [game setGameUrl: [NSURL URLWithString:[[[searchedGameNodeElement children] objectAtIndex: 3] objectForKey: @"href"]]];
         [game setTitle: [[[[[[[searchedGameNodeElement children] objectAtIndex: 5] children] objectAtIndex: 1] children] objectAtIndex: 0] content]];
         [game setPlatform: [[[[[[[[[searchedGameNodeElement children] objectAtIndex: 5] children] objectAtIndex: 3] children] objectAtIndex: 1] children] objectAtIndex: 0] content]];
+        [game setBoxArtUrl: [NSURL URLWithString:[[[[[searchedGameNodeElement children] objectAtIndex: 3] children] objectAtIndex: 0] objectForKey: @"data-cfsrc"]]];
+
         [[self searchedGames] addObject: game];
     }
     
@@ -172,12 +179,31 @@
     // Navigation logic may go here, for example:
     // Create the next view controller.
     GameDetailViewController *gameDetailViewController = [[GameDetailViewController alloc] init];
+    [self setGameDetailViewController: gameDetailViewController];
+
     [gameDetailViewController setGame: [[self searchedGames] objectAtIndex:[indexPath row]]];
+    [gameDetailViewController setupViewController];
     
+    [[self activityIndicator] setHidden: NO];
+    [[self activityIndicator] startAnimating];
+}
+
+-(void) pushGameDetailViewController:(NSNotification *)notify
+{
+   
     // Pass the selected object to the new view controller.
-    
     // Push the view controller.
-    [self.navigationController pushViewController:gameDetailViewController animated:YES];
+    [[self activityIndicator] setHidden: YES];
+    [[self activityIndicator] stopAnimating];
+    
+    if([[self gameDetailViewController] navigationController] == nil && [self gameDetailViewController] == [notify object]) {
+        [[self navigationController] pushViewController:[self gameDetailViewController] animated:YES];
+    }}
+
+- (void)viewDidUnload
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewDidUnload];
 }
 
 /*- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {

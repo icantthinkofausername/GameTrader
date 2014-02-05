@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameSearchViewController">
             <connections>
+                <outlet property="activityIndicator" destination="4cF-KB-of4" id="Qvp-Js-yH2"/>
                 <outlet property="searchDisplayController" destination="q7R-f1-pSr" id="iyw-UD-aAB"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -23,6 +24,10 @@
                         <outlet property="delegate" destination="-1" id="hG8-eZ-whl"/>
                     </connections>
                 </searchBar>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4cF-KB-of4">
+                    <rect key="frame" x="145" y="12" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

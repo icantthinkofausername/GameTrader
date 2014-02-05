@@ -11,6 +11,8 @@
 @implementation Game
 
 @synthesize title = _title;
+@synthesize description = _description;
+@synthesize date = _date;
 @synthesize gameUrl = _gameUrl;
 @synthesize boxArtUrl = _boxArtUrl;
 @synthesize canRelist = _canRelist;

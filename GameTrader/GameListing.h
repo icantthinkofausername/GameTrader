@@ -10,7 +10,7 @@
 
 @interface GameListing : NSObject
 
-@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *sellerAddress;
 @property (nonatomic, strong) NSString *percent;
 @property (nonatomic, strong) NSString *sells;
 @property (nonatomic, strong) NSString *buys;
